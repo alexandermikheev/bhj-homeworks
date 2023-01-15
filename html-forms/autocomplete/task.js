@@ -6,7 +6,6 @@ class Autocomplete {
     this.list = container.querySelector( '.autocomplete__list' );
     this.valueContainer = container.querySelector( '.autocomplete__value' );
     this.valueElement = container.querySelector( '.autocomplete__text-content' );
-
     this.registerEvents();
   }
 
@@ -50,7 +49,6 @@ class Autocomplete {
 
   onSearch() {
     const matches = this.getMatches( this.searchInput.value );
-
     this.renderMatches( matches );
   }
 
@@ -66,13 +64,19 @@ class Autocomplete {
 
     this.list.innerHTML = html.join('');
   }
-
   getMatches( text ) {
+    let arr = [];
+    for (let i of this.input.options){
+      if (i.text.includes(text)) {
+        arr.push(i);
+      }
+    }
+    return arr;
+    //autocomplete__search
     /*
       TODO: этот метод нужно дописать
       text - фраза, которую вводят в поле поиска
       Метод должен вернуть массив.
-
       Он формируется на основе списка опций select-элемента (this.input)
       Подходящие опции - те, чей текст содержит то, что есть в аргументе text
       Необходимо вернуть массив объектов со свойствами:
@@ -81,12 +85,12 @@ class Autocomplete {
         value: 'Содержимое атрибута value'
       }
     */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
-      }
-    ];
+    // return [
+    //   {
+    //     text: 'Чубакка',
+    //     value: '1'
+    //   }
+    // ];
   }
 }
 

@@ -4,10 +4,11 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.p = document.getElementById('timer');
 
     this.reset();
-
     this.registerEvents();
+    this.timer();
   }
 
   reset() {
@@ -16,24 +17,33 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
+  timer(){
+    console.log(this.p.textContent);
+    let timerId = setInterval(() => {
+      let m = Number(this.p.textContent);
+      this.p.textContent = m - 1;
+      if (m == 1) {
+        this.p.textContent = 10;;
+        return this.fail();
+        }
+  }, 1000);
+
+  }
+  
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
+    document.addEventListener('keydown', (event) => {
+      if (event.key == this.currentSymbol.textContent) {
+        return this.success();
+        } else {
+          return this.fail();
+        }
+    });
   }
 
   success() {
-    if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
     this.currentSymbol.classList.add('symbol_correct');
     this.currentSymbol = this.currentSymbol.nextElementSibling;
-
     if (this.currentSymbol !== null) {
-      this.currentSymbol.classList.add('symbol_current');
       return;
     }
 
@@ -41,6 +51,7 @@ class Game {
       alert('Победа!');
       this.reset();
     }
+    this.p.textContent = 10;
     this.setNewWord();
   }
 
@@ -49,6 +60,7 @@ class Game {
       alert('Вы проиграли!');
       this.reset();
     }
+    this.p.textContent = 10;
     this.setNewWord();
   }
 
@@ -90,5 +102,4 @@ class Game {
   }
 }
 
-new Game(document.getElementById('game'))
-
+new Game(document.getElementById('game'));
