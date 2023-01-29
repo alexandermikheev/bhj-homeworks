@@ -64,6 +64,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: calc() 2ms;
 }
 
 .slider__dot {

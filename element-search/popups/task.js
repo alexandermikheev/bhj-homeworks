@@ -1,24 +1,22 @@
-const start = document.getElementById('modal_main');
-const success = document.getElementById('modal_success');
-const btn = document.querySelectorAll('.btn');
+const modal = window.modal_main;
+const success = window.modal_success;
+const modalClose = Array.from(document.getElementsByClassName('modal__close'));
+const btn = Array.from(document.getElementsByClassName('btn'))
 
-const close = Array.from(document.getElementsByClassName(' modal__close_times'));
+modal.classList.add("modal_active");
 
-start.className = 'modal modal_active';
-
-close.forEach((b) => {
+modalClose.forEach((b) => {
   b.addEventListener('click', handler)
-})
+});
+
+btn.forEach((b) => {
+  b.addEventListener('click', modalsuccess)
+});
 
 function handler(){
   this.closest(".modal").classList.remove("modal_active");
-}
+};
 
-btn.forEach((b) => {
-  b.addEventListener('click', clicker)
-})
-
-function clicker(){
-  start.classList.remove('modal_active');
-  success.classList.toggle('modal_active');
-}
+function modalsuccess(){
+  success.classList.add("modal_active");
+};
